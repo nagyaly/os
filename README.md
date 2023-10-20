@@ -8,5 +8,3 @@
 | ------ | ------ | ------ |
 | 1 | Fork | subprocess, process id and parent id, orphan/zombie processes  |
 | 2 | Pipe | Interprocess Communication using Pipe |
-
-s
