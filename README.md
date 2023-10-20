@@ -1,0 +1,11 @@
+# AASTMT | College of Artificial Intelligence
+## Operating Systems ![](https://img.shields.io/badge/Semester-Fall--2024-red)
+---
+## This Course is Conducted By:
+- _Eng. Nagy K. Aly_
+
+| # | Topic | Content |
+| ------ | ------ | ------ |
+| 1 | Fork | subprocess |
+|  |  | subprocess |
+| 2 | Pipe | Interprocess Communication using Pipe |
