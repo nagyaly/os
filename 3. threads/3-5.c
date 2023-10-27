@@ -3,16 +3,18 @@
 #include <unistd.h>
 #include <time.h>
 #include <pthread.h>
-#define NUM 5
-//combine all arguments in 1 structure
+#define NUM 6
 typedef struct{
     char label;
     int limit;
+    pthread_t prerequiste;
 } Targs;
 //----------------------------------------------
 void* my_routine(void* raw_args){
     //convert pointer from void* to Targs*
     Targs* args = (Targs*) raw_args;
+    //wait for a certain thread ???
+    pthread_join(args->prerequiste, NULL);
     int i;
     for(i=0;i<args->limit;i++){
         printf("%c: %d / %d\n", args->label, i + 1, args->limit);
@@ -28,6 +30,10 @@ int main(){
     for(t=0;t<NUM;t++){
         args[t].label = 'A' + t;
         args[t].limit = 1 + rand() % 5;
+        if(t % 2 != 0){     //1, 3, 5
+            //1 depends on 0, 3 depends on 2, 5 depends on 4
+            args[t].prerequiste = tids[t - 1];
+        }
         pthread_create(&tids[t], NULL, my_routine, &args[t]);
     }
     int i;
@@ -35,9 +41,6 @@ int main(){
         printf("main: %d\n", i);
         usleep(rand() % (1000 * 1000));
     }
-    // wait for threads one by one
-    for(t=0;t<NUM;t++){
-        pthread_join(tids[t], NULL);
-    }
+    pthread_exit(NULL);
     return 0;
 }
