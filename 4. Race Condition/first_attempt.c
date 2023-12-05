@@ -2,10 +2,19 @@
 #include <stdio.h>
 #include <unistd.h>
 int tickets = 10;
+int turn = 0;
+/*
+  each thread change turn to the other thread
+  but the problem if on of the threads failed !
+*/
 void* thread1(void *args) {
   while (tickets > 0) {
     sleep(1);               // force delay
-    tickets--;              // critical section
+    //====================== critical section start
+    while(turn != 0);
+    tickets--;
+    turn = 1;
+    //====================== critical section end
     printf("Thread 1 sold 1 ticket, %d left\n", tickets);
   }
   return NULL;
@@ -13,7 +22,11 @@ void* thread1(void *args) {
 void* thread2(void *args) {
   while (tickets > 0) {
     sleep(1);               // force delay
-    tickets--;              // critical section
+    //====================== critical section start
+    while(turn != 1);
+    tickets--;
+    turn = 0;
+    //====================== critical section end
     printf("Thread 2 sold 1 ticket, %d left\n", tickets);
   }
   return NULL;
