@@ -2,21 +2,21 @@
 #include <stdio.h>
 #include <unistd.h>
 int tickets = 10;
-int turn = 0;
+int flag[2];
 /*
-  first attempt does not guarantee mutual exclusion
-  each thread change turn to the other thread
-  but the problem if on of the threads failed !
+  third attempt guarantee mutual exclusion
+  will result in a deadlock
 */
 void* thread0(void *args) {
   while (1) {
     sleep(1);               // force delay
     //====================== critical section start
-    while(turn != 0);
+		flag[0] = 1;							//say that thread0 is inside
+    while(flag[1]);						//wait for thread1
     if(!tickets) break;
     tickets--;
-    printf("Thread 1 sold 1 ticket, %d left\n", tickets);
-    turn = 1;
+		printf("Thread 1 sold 1 ticket, %d left\n", tickets);
+    flag[0] = 0;						//say that thread0 finished
     //====================== critical section end
   }
   return NULL;
@@ -25,11 +25,12 @@ void* thread1(void *args) {
   while (1) {
     sleep(1);               // force delay
     //====================== critical section start
-    while(turn != 1);
-    if(!tickets) break;
+		flag[1] = 1;							//say that thread1 is inside
+    while(flag[0]);						//wait for thread0
+    if(tickets < 3) break;
     tickets--;
-    printf("Thread 2 sold 1 ticket, %d left\n", tickets);
-    turn = 0;
+		printf("Thread 2 sold 1 ticket, %d left\n", tickets);
+    flag[1] = 0;							//say that thread1 finished
     //====================== critical section end
   }
   return NULL;

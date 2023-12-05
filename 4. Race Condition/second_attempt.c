@@ -4,6 +4,7 @@
 int tickets = 10;
 int flag[2];
 /*
+  second attempt does not guarantee mutual exclusion
   will result in a deadlock
 */
 void* thread0(void *args) {
