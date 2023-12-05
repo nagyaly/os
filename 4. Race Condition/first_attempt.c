@@ -8,10 +8,11 @@ int turn = 0;
   but the problem if on of the threads failed !
 */
 void* thread1(void *args) {
-  while (tickets > 0) {
+  while (1) {
     sleep(1);               // force delay
     //====================== critical section start
     while(turn != 0);
+    if(!tickets) break;
     tickets--;
     turn = 1;
     //====================== critical section end
@@ -20,10 +21,11 @@ void* thread1(void *args) {
   return NULL;
 }
 void* thread2(void *args) {
-  while (tickets > 0) {
+  while (1) {
     sleep(1);               // force delay
     //====================== critical section start
     while(turn != 1);
+    if(!tickets) break;
     tickets--;
     turn = 0;
     //====================== critical section end

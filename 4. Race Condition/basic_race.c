@@ -3,8 +3,9 @@
 #include <unistd.h>
 int tickets = 10;
 void* thread1(void *args) {
-  while (tickets > 0) {
+  while (1) {
     sleep(1);               // force delay
+    if(!tickets) break;
     tickets--;              // critical section
     printf("Thread 1 sold 1 ticket, %d left\n", tickets);
   }
@@ -13,6 +14,7 @@ void* thread1(void *args) {
 void* thread2(void *args) {
   while (tickets > 0) {
     sleep(1);               // force delay
+    if(!tickets) break;
     tickets--;              // critical section
     printf("Thread 2 sold 1 ticket, %d left\n", tickets);
   }
