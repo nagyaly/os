@@ -33,7 +33,6 @@ void* thread2(void *args) {
 }
 int main(void) {
   pthread_t tid1, tid2;
-  int i;
   pthread_create(&tid1, NULL, thread1, NULL);
   pthread_create(&tid2, NULL, thread2, NULL);
 
