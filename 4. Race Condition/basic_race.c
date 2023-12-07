@@ -8,18 +8,18 @@ void* thread0(void *args) {
     //====================== critical section start
     if(!tickets) break;
     tickets--;
-    printf("Thread 1 sold 1 ticket, %d left\n", tickets);
+    printf("Thread 0 sold 1 ticket, %d left\n", tickets);
     //====================== critical section end
   }
   return NULL;
 }
 void* thread1(void *args) {
-  while (tickets > 0) {
+  while (1) {
     sleep(1);               // force delay
     //====================== critical section start
     if(!tickets) break;
     tickets--;
-    printf("Thread 2 sold 1 ticket, %d left\n", tickets);
+    printf("Thread 1 sold 1 ticket, %d left\n", tickets);
     //====================== critical section end
   }
   return NULL;
