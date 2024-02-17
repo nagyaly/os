@@ -1,0 +1,7 @@
+.vscode
+.secret
+.DS_Store
+**/.DS_Store
+*
+!/**/
+!*.*
