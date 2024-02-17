@@ -1,5 +1,5 @@
 # AASTMT | College of Artificial Intelligence
-## Operating Systems ![](https://img.shields.io/badge/Semester-Spring--2024-green)
+## Operating Systems ![](https://img.shields.io/badge/Semester-Spring--2024-success)
 ---
 ## This Course is Conducted By:
 - _Dr. Ahmed Maged_
