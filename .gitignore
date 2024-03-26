@@ -1,7 +1,7 @@
-.secret
-.vscode
-.DS_Store
-**/.DS_Store
 *
 !/**/
 !*.*
+.vscode
+.secret
+.DS_Store
+**/.DS_Store
