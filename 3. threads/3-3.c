@@ -27,6 +27,9 @@ int main(){
         printf("main: %d\n", i);
         usleep(rand() % (1000 * 1000));
     }
-    pthread_exit(NULL);
+    // wait for threads one by one
+    for(i=0;i<NUM;i++){
+        pthread_join(tids[i], NULL);
+    }
     return 0;
 }

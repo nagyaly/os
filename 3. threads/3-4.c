@@ -36,8 +36,8 @@ int main(){
         usleep(rand() % (1000 * 1000));
     }
     // wait for threads one by one
-    for(t=0;t<NUM;t++){
-        pthread_join(tids[t], NULL);
+    for(i=0;i<NUM;i++){
+        pthread_join(tids[i], NULL);
     }
     return 0;
 }

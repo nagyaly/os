@@ -31,6 +31,6 @@ int main(){
     }
 
     //wait for the child thread
-    pthread_exit(NULL);
+    pthread_join(tid, NULL);
     return 0;
 }

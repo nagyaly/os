@@ -22,6 +22,7 @@ int main(){
         printf("main: %d\n", i);
         sleep(1);
     }
-    pthread_exit(NULL);
+    pthread_join(tid1, NULL);
+    pthread_join(tid2, NULL);
     return 0;
 }

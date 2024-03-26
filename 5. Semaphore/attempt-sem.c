@@ -10,26 +10,32 @@
 sem_t sem;
 int tickets = 10;
 void* thread0(void *args) {
-  while (1) {
-    sleep(1);               // force delay
+  while (tickets > 0) {
     //====================== critical section start
     sem_wait(&sem);                     //request CS (decrement)
-    if(!tickets) break;
-    tickets--;
-    printf("Thread 1 sold 1 ticket, %d left\n", tickets);
+
+    if(tickets > 0){
+      usleep(0.25 * 1e6);               // force delay for 0.25 sec
+      tickets--;
+      printf("Thread 1 sold 1 ticket, %d left\n", tickets);
+    }
+
     sem_post(&sem);                     //exit CS (increment)
     //====================== critical section end
   }
   return NULL;
 }
 void* thread1(void *args) {
-  while (1) {
-    sleep(1);               // force delay
+  while (tickets > 0) {
     //====================== critical section start
     sem_wait(&sem);                     //request CS (decrement)
-    if(tickets < 3) break;
-    tickets--;
-    printf("Thread 2 sold 1 ticket, %d left\n", tickets);
+
+    if(tickets > 0){
+      usleep(0.25 * 1e6);               // force delay for 0.25 sec
+      tickets--;
+      printf("Thread 2 sold 1 ticket, %d left\n", tickets);
+    }
+
     sem_post(&sem);                     //exit CS (increment)
     //====================== critical section end
   }
@@ -41,7 +47,12 @@ int main(void) {
     pthread_t tid0, tid1;
     pthread_create(&tid0, NULL, thread0, NULL);
     pthread_create(&tid1, NULL, thread1, NULL);
-    pthread_exit(NULL); // wait for all threads to exit
+
+    // wait for all threads to exit
+    pthread_join(tid0, NULL);
+    pthread_join(tid1, NULL);
+    printf("Tickets Left: %d\n", tickets);
+
     sem_destroy(&sem);
     return 0;
 }

@@ -10,10 +10,10 @@ int turn = 0;
 */
 void* thread0(void *args) {
   while (1) {
-    sleep(1);               // force delay
     //====================== critical section start
     while(turn != 0);
-    if(!tickets) break;
+    if(tickets <= 0) break;
+    usleep(0.25 * 1e6);               // force delay for 0.25 sec
     tickets--;
     printf("Thread 1 sold 1 ticket, %d left\n", tickets);
     turn = 1;
@@ -23,10 +23,10 @@ void* thread0(void *args) {
 }
 void* thread1(void *args) {
   while (1) {
-    sleep(1);               // force delay
     //====================== critical section start
     while(turn != 1);
-    if(!tickets) break;
+    if(tickets <= 0) break;
+    usleep(0.25 * 1e6);               // force delay for 0.25 sec
     tickets--;
     printf("Thread 2 sold 1 ticket, %d left\n", tickets);
     turn = 0;
@@ -38,6 +38,11 @@ int main(void) {
   pthread_t tid0, tid1;
   pthread_create(&tid0, NULL, thread0, NULL);
   pthread_create(&tid1, NULL, thread1, NULL);
-  pthread_exit(NULL); // wait for all threads to exit
+
+  // wait for all threads to exit
+  pthread_join(tid0, NULL);
+  pthread_join(tid1, NULL);
+  printf("Tickets Left: %d\n", tickets);
+
   return 0;
 }
