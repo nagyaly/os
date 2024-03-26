@@ -2,7 +2,7 @@
 .secret
 .DS_Store
 *.tex
-*/*.tex
+**/*.tex
 **/.DS_Store
 *
 !/**/
