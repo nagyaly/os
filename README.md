@@ -8,5 +8,7 @@
 | # | Topic | Content |
 | ------ | ------ | ------ |
 | 1 | Linux 0 | Getting Started with Liux, and bash commands |
-| 5 | Semaphore | Race condition, first attempt and semaphores |
+| 2 | Pipe | Interprocess Communication using Pipe |
+| 3 | Threads | Lighweight process, and threads management |
+| 4 | Semaphore | Race condition, first attempt and semaphores |
 
