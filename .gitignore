@@ -1,5 +1,5 @@
 .vscode
-.secret
+secret
 .DS_Store
 *.tex
 **/*.tex
