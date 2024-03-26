@@ -1,6 +1,8 @@
 .vscode
 .secret
 .DS_Store
+*.tex
+*/*.tex
 **/.DS_Store
 *
 !/**/

@@ -8,3 +8,5 @@
 | # | Topic | Content |
 | ------ | ------ | ------ |
 | 1 | Linux 0 | Getting Started with Liux, and bash commands |
+| 5 | Semaphore | Race condition, first attempt and semaphores |
+
